@@ -1,3 +1,5 @@
+# pyright: reportMissingImports=false
+
 import io
 import json
 import re
@@ -11,7 +13,7 @@ import streamlit as st
 
 # Safe import for document ingestion
 try:
-    import PyPDF2
+    import PyPDF2  # type: ignore[import-not-found]
     PYPDF_AVAILABLE = True
 except ImportError:
     PYPDF_AVAILABLE = False
@@ -22,7 +24,7 @@ except ImportError:
 DB_NAME = "pv_cases.db"
 
 st.set_page_config(
-    page_title="PV-Sentinel | Standalone Clinical Triage",
+    page_title="AI assisted ICSR triage and signal detection | Standalone Clinical Triage",
     page_icon="🛡️",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -31,6 +33,13 @@ st.set_page_config(
 # =========================================================
 # 2. CLINICAL DARK THEME STYLING
 # =========================================================
+st.info(
+    """**Preview Build | Active Development**  
+This public dashboard is an interactive demo of core triage and signal detection logic. The main project runs privately on a dedicated clinical LLM for secure clinical reasoning and unstructured narrative parsing.
+
+*Actively working on fine-tuning and upgrading the model to enhance accuracy and explanations.*""",
+    icon="🚧",
+)
 st.markdown("""
 <style>
     .block-container {
